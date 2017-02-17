@@ -1,78 +1,85 @@
 class UsersController < ApplicationController
-  before_filter :authenticate,
-                :only => [:index, :edit, :update, :destroy,
-                          :followers, :following]
-  before_filter :correct_user, :only => [:edit, :update]
-  before_filter :admin_user,   :only => :destroy
-  
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy,
+                                        :following, :followers]
+  before_action :correct_user,   only: [:edit, :update]
+  before_action :admin_user,     only: :destroy
+
   def index
-    @users = User.paginate(:page => params[:page])
-    @title = "All users"
-  end
-  
-  def show
-    @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(:page => params[:page])
-    @title = @user.name
+    @users = User.where(activated: true).paginate(page: params[:page])
   end
 
-  def following
-    @title = "Following"
+  def show
     @user = User.find(params[:id])
-    @users = @user.following.paginate(:page => params[:page])
-    render 'show_follow'
-  end
-  
-  def followers
-    @title = "Followers"
-    @user = User.find(params[:id])
-    @users = @user.followers.paginate(:page => params[:page])
-    render 'show_follow'
+    redirect_to root_url and return unless @user.activated?
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def new
-    @user  = User.new
-    @title = "Sign up"
+    @user = User.new
   end
-  
+
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     if @user.save
-      sign_in @user
-      redirect_to @user, :flash => { :success => "Welcome to the Sample App!" }
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
     else
-      @title = "Sign up"
       render 'new'
     end
   end
-  
+
   def edit
-    @title = "Edit user"
+    @user = User.find(params[:id])
   end
-  
+
   def update
-    if @user.update_attributes(params[:user])
-      redirect_to @user, :flash => { :success => "Profile updated." }
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to @user
     else
-      @title = "Edit user"
       render 'edit'
     end
   end
 
   def destroy
-    @user.destroy
-    redirect_to users_path, :flash => { :success => "User destroyed." }
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
   end
 
+  def following
+    @title = "Following"
+    @user  = User.find(params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
+  
   private
 
+    def user_params
+      params.require(:user).permit(:name, :email, :password,
+                                   :password_confirmation)
+    end
+
+    # Before filters
+
+    # Confirms the correct user.
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user)
+      redirect_to(root_url) unless current_user?(@user)
     end
-    
+
+    # Confirms an admin user.
     def admin_user
-      @user = User.find(params[:id])
-      redirect_to(root_path) if !current_user.admin? || current_user?(@user)
+      redirect_to(root_url) unless current_user.admin?
     end
 end
