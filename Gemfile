@@ -14,8 +14,6 @@ gem 'jquery-rails',            '4.1.1'
 gem 'turbolinks',              '5.0.0'
 gem 'jbuilder',                '2.4.1'
 gem 'bootstrap-datepicker-rails', '>= 0.6.21'
-gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 #gem 'bootstrap-timepicker-rails-addon'
 #gem 'avatarly'
 
