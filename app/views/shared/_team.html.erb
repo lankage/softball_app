@@ -1,0 +1,13 @@
+<% @user ||= current_user %>
+<div >
+ 
+<% @currentgame = Game.order('date DESC').first %>
+<p>Next Game:   
+    <%= @currentgame.date.strftime("%a, %d %b %Y") %> <%= @currentgame.time.strftime("%I:%M %p") %>
+    </p>
+    <p><%= @currentgame.comments %>
+    </p>
+  
+    <br />
+
+</div>

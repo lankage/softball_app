@@ -1,0 +1,2 @@
+class UserAttendence < ApplicationRecord
+end

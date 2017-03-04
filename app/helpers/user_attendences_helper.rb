@@ -1,0 +1,2 @@
+module UserAttendencesHelper
+end

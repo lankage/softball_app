@@ -11,11 +11,30 @@
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %>
 
+      <%= f.label :phone_number %>
+      <%= f.text_field :phone_number, class: 'form-control' %>
+
+      <%= f.label :positions %>
+      <%= f.text_field :positions, class: 'form-control' %>
+
+      <%= f.label :desired_teammates %>
+      <%= f.text_field :desired_teammates, class: 'form-control' %>
+
+      <%= f.label :shirt_size %>
+      <%= f.collection_select :shirt_size, Size.order(:id),:id,:size, include_blank: true,
+      class: 'form-control' %>
+
+      <%= f.label :gender %>
+      <%= f.collection_select :gender, Gender.order(:id),:id,:gender, include_blank: true,
+      class: 'form-control' %>
+
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
 
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+       <%= f.hidden_field :haspaid, :value => false%>
 
       <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>

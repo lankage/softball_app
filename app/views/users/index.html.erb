@@ -1,10 +1,62 @@
 <% provide(:title, 'All users') %>
-<h1>All users</h1>
+<h1>All Players</h1>
 
 <%= will_paginate %>
 
-<ul class="users">
-  <%= render @users %>
-</ul>
+<table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>Gender</th>
+          <th>Team</th>
+          <th>Positions</th>
+          <% if current_user.admin? %>
+	          <th>Email</th>
+	          <th>Created At</th>
+	          <th>Admin?</th>
+	          <th>Activated?</th>
+	          <th>Desired Teammates</th>
+	          <th>Shirt Size</th>
+	          <th>Has Paid?</th>
+	          <th>Phone #</th>
+	          <th>Player Type</th>
+	          <th>Admin Actions</th>
+	      <% end %>
+
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |u| %>
+          <tr>
+            <td><%= user_icon_for u %>&nbsp;&nbsp;<%= u.name %></td>
+            <td><%= Gender.find(u.gender).gender%></td>
+            <td><%= u.team %></td>
+            <td><%= u.positions %></td>
+ 			<% if current_user.admin? %>
+	            <td><%= u.email %></td>
+	            <td><%= u.created_at %></td>
+	            <td><%= u.admin %></td>
+	            <td><%= u.activated %></td>
+	            <td><%= u.desired_teammates %></td>
+	            
+	            <td><%= Size.find(u.shirt_size).size %></td>
+           
+	            <td><%= u.haspaid%></td>
+	            <td><%= u.phone_number %></td>
+            
+            	<td><%= u.player_type %></td>
+            	<td>
+            	<% if current_user.admin? && !current_user?(u) %>
+    				 <%= link_to "delete", u, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+                    | <%= link_to 'edit', edit_user_path(id: u.id) %>
+  				<% end %>
+  				</td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
 
 <%= will_paginate %>

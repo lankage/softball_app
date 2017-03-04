@@ -12,6 +12,28 @@
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %>
 
+      <%= f.label :phone_number %>
+      <%= f.text_field :phone_number, class: 'form-control', :value => @user.phone_number %>
+      
+      <%= f.label :positions %>
+      <%= f.text_field :positions, class: 'form-control' %>
+
+      <%= f.label :desired_teammates %>
+      <%= f.text_field :desired_teammates, class: 'form-control' %>
+
+      <%= f.label :shirt_size %>
+      <%= f.collection_select :shirt_size, Size.order(:id),:id,:size, include_blank: true,
+      class: 'form-control' %>
+
+      <%= f.label :gender %>
+      <%= f.collection_select :gender, Gender.order(:id),:id,:gender, include_blank: true,
+      class: 'form-control' %>
+
+      <% if current_user.admin? %>
+        <%= f.label :haspaid %>
+        <%= f.select :haspaid, [['Yes', true], ['No',false]], :include_blank => false %>
+      <% end %>
+
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
 

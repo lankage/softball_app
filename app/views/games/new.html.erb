@@ -1,0 +1,24 @@
+<% provide(:title, 'New Game') %>
+<h1>Add New Game</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@game) do |g| %>
+      <%= render 'shared/error_messages', object: g.object %>
+      <%= g.label :date %>
+      <%= g.date_field :date, class: 'form-control' %>
+
+      <%= g.label :time %>
+      <%= g.time_field :time, class: 'form-control' %>
+      <%= g.label :homeaway %>
+      <%= g.collection_select :homeaway, Homeaway.order(:id),:id,:info, include_blank: true,
+      class: 'form-control' %>
+
+      <%= g.label :comments %>
+      <%= g.text_field :comments, class: 'form-control' %>
+
+
+      <%= g.submit "Create new Game", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

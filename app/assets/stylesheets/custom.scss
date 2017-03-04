@@ -277,7 +277,23 @@ input {
     margin-top: 5px;
   }
 }
+.postScrollFrame {
+  overflow:scroll; 
+  height:500px;
 
+}
+.postColumn {
+  width: 30%;
+}
+.attendanceSelection {
+  border-collapse: separate;
+   border-spacing: 10px;
+}
+#gamesContainer {
+  
+  border-style: solid;
+  border-width: 5px;
+}
 aside {
   textarea {
     height: 100px;

@@ -1,20 +1,49 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-4">
+  <aside class="col-md-8">
     <section>
       <h1>
-        <%= gravatar_for @user %>
         <%= @user.name %>
+        <%= user_icon_for @user %>
       </h1>
     </section>
+    
     <section class="stats">
       <%= render 'shared/stats' %>
     </section>
+
+    <section>
+    <div id="gameCurrentUserContainer">
+    <p>Next Game:   
+    <%= @game.date.strftime("%a, %d %b %Y") %> <%= @game.time.strftime("%I:%M %p") %>
+    </p>
+    <p><%= @game.comments %>
+    </p>
+  
+    <br />
+    <p>I am: 
+ 
+      <% if @attendence.nil? %>
+        <%= "??" %>
+      <% else %>
+        <%= @attendence.attendance_type %>
+      <% end %>
+  
+    </p>
+    <table class="attendanceSelection">
+    <tr>
+    <td><%= link_to 'Going',  attend_path(user: @user, game_id: @game.id, attendance_type: 'Going'), method: :post, class: "btn btn-success" %></td>
+    <td><%= link_to 'Maybe',  attend_path(user: @user, game_id: @game.id, attendance_type: 'Maybe'), method: :post, class: "btn btn-warning" %></td>
+    <td><%= link_to 'Not Going',  attend_path(user: @user, game_id: @game.id, attendance_type: 'Not Going'), method: :post, class: "btn btn-danger" %></td></tr>
+    </table>
+    </div>
+    
+    </section>
   </aside>
-  <div class="col-md-8">
+  <div class="col-md-4  postColumn postScrollFrame">
     <%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
+      <h3>Wisco Kids Posts (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">
         <%= render @microposts %>
       </ol>

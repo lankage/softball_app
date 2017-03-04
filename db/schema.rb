@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609220802) do
+ActiveRecord::Schema.define(version: 20170304172123) do
+
+  create_table "games", force: :cascade do |t|
+    t.date     "date"
+    t.time     "time"
+    t.string   "homeaway"
+    t.text     "comments"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genders", force: :cascade do |t|
+    t.string   "gender"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "homeaways", force: :cascade do |t|
+    t.string   "info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "microposts", force: :cascade do |t|
     t.text     "content"
@@ -31,6 +52,20 @@ ActiveRecord::Schema.define(version: 20160609220802) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
+  create_table "sizes", force: :cascade do |t|
+    t.string   "size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_attendences", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "game_id"
+    t.string   "attendance_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -44,6 +79,14 @@ ActiveRecord::Schema.define(version: 20160609220802) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.text     "desired_teammates"
+    t.text     "positions"
+    t.string   "shirt_size"
+    t.string   "gender"
+    t.boolean  "haspaid"
+    t.string   "player_type"
+    t.string   "phone_number"
+    t.string   "team"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

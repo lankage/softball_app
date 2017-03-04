@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy,
                                         :following, :followers]
-  before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
-
+                                    
+  before_action :correct_user,   only: [:show, :edit, :update], unless: -> {current_user.admin?}
+  #before_action :admin_user,     only: [:edit, :update, :destroy]
+ before_action :admin_user,     only: [:destroy]
+ 
   def index
     @users = User.where(activated: true).paginate(page: params[:page])
   end
@@ -12,6 +14,26 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
     @microposts = @user.microposts.paginate(page: params[:page])
+
+    @game = Game.order('date DESC').first
+    @attendence = UserAttendence.where(:user_id => @user.id,:game_id => @game.id).take
+
+  end
+
+  def attend
+    @user = User.find(params[:user])
+    @game = Game.find(params[:game_id])
+
+    @attendence = UserAttendence.where(:user_id => @user.id,:game_id => @game.id).take
+    if @attendence.nil?
+      attrec = UserAttendence.new(user_id: @user.id, game_id: @game.id,attendance_type: params[:attendance_type])
+      attrec.save
+    else
+      @attendence.attendance_type = params[:attendance_type]
+      @attendence.save
+    end
+    
+    redirect_to :back
   end
 
   def new
@@ -67,7 +89,8 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+                                   :password_confirmation, :positions, :desired_teammates, :shirt_size,
+                                   :gender, :phone_number, :haspaid)
     end
 
     # Before filters
@@ -75,7 +98,7 @@ class UsersController < ApplicationController
     # Confirms the correct user.
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      redirect_to(root_url) unless current_user?(@user) #|| current_user.admin?
     end
 
     # Confirms an admin user.
