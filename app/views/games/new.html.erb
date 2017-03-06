@@ -13,6 +13,9 @@
       <%= g.label :homeaway %>
       <%= g.collection_select :homeaway, Homeaway.order(:id),:id,:info, include_blank: true,
       class: 'form-control' %>
+      <%= g.label :forteam %>
+      <%= g.collection_select :forteam, Team.order(:id),:id,:name, include_blank: true,
+      class: 'form-control' %>
 
       <%= g.label :comments %>
       <%= g.text_field :comments, class: 'form-control' %>

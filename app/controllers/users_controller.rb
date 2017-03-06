@@ -13,11 +13,26 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
-    @microposts = @user.microposts.paginate(page: params[:page])
+    #@microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = Micropost.all
 
-    @game = Game.order('date DESC').first
+    @game = Game.where("date >= ?", Date.today).where(:forteam => @user.team).order("date ASC").limit(1).take
     @attendence = UserAttendence.where(:user_id => @user.id,:game_id => @game.id).take
 
+  end
+  def beer
+    @user = User.find(params[:user])
+
+    @beerRecord = Beer.where(:user_id => @user.id).take
+    if @beerRecord.nil?
+      beerRec = Beer.new(user_id: @user.id, count: 1)
+      beerRec.save
+    else
+      @beerRecord.count = @beerRecord.count + 1
+      @beerRecord.save
+    end
+
+    redirect_to :back
   end
 
   def attend
@@ -90,7 +105,7 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation, :positions, :desired_teammates, :shirt_size,
-                                   :gender, :phone_number, :haspaid)
+                                   :gender, :phone_number, :haspaid, :team)
     end
 
     # Before filters

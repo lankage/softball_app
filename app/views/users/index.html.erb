@@ -30,7 +30,12 @@
           <tr>
             <td><%= user_icon_for u %>&nbsp;&nbsp;<%= u.name %></td>
             <td><%= Gender.find(u.gender).gender%></td>
-            <td><%= u.team %></td>
+            <td>
+            <% if !u.team.nil? %>
+              <%= Team.find(u.team).name %>
+            <% else %>
+              None
+            <% end %></td>
             <td><%= u.positions %></td>
  			<% if current_user.admin? %>
 	            <td><%= u.email %></td>

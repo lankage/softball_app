@@ -1,9 +1,12 @@
 <% provide(:title, @user.name) %>
 <div class="row">
   <aside class="col-md-8">
+    <div id="homeBanner" >
+      <%= image_tag("WKbaseball_mods_blue_noapostrophe_banner.png", :alt => "Wisco Kids") %>
+    </div>
     <section>
       <h1>
-        <%= @user.name %>
+        <%= @user.name %><br /><br />
         <%= user_icon_for @user %>
       </h1>
     </section>
@@ -21,10 +24,10 @@
     </p>
   
     <br />
-    <p>I am: 
+    <p style="font-size: 14pt;">I am: 
  
       <% if @attendence.nil? %>
-        <%= "??" %>
+        <%= "Not Checked In" %>
       <% else %>
         <%= @attendence.attendance_type %>
       <% end %>
@@ -37,17 +40,21 @@
     <td><%= link_to 'Not Going',  attend_path(user: @user, game_id: @game.id, attendance_type: 'Not Going'), method: :post, class: "btn btn-danger" %></td></tr>
     </table>
     </div>
-    
+    <br /><br />
+    <div id="beers-container">
+    <p>Beer Logging</p>
+      <%= link_to 'Add Beer Consumed',  beer_path(user: @user), method: :post, class: "btn btn-success" %>
+    </div>
     </section>
   </aside>
   <div class="col-md-4  postColumn postScrollFrame">
     <%= render 'follow_form' if logged_in? %>
-    <% if @user.microposts.any? %>
-      <h3>Wisco Kids Posts (<%= @user.microposts.count %>)</h3>
+    <% if Micropost.all.any? %>
+      <h3>Wisco Kids Posts (<%= Micropost.all.count %>)</h3>
       <ol class="microposts">
         <%= render @microposts %>
       </ol>
-      <%= will_paginate @microposts %>
+      
     <% end %>
   </div>
 </div>

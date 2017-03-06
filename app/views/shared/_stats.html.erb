@@ -1,10 +1,19 @@
 <% @user ||= current_user %>
 <div class="stats">
-  <a href="<%= following_user_path(@user) %>">
     <strong id="following" class="stat">
-      <%= @user.following.count %>
+    <% if !Beer.where(user_id: @user.id).take.nil? %>
+      <%= Beer.where(user_id: @user.id).take.count %>
+    <% else %>
+      0
+    <% end %>
     </strong>
     Beers Consumed
-  </a>
+  <strong id="following" class="stat">
+    <% if @user.haspaid?  %>
+      <span style="color: green;">Paid</span>
+    <% else %>
+      <span style="color: red;">Has Not Paid</span>
+    <% end %>
+    </strong>
   
 </div>

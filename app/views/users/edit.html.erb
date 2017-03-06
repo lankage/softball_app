@@ -31,7 +31,12 @@
 
       <% if current_user.admin? %>
         <%= f.label :haspaid %>
-        <%= f.select :haspaid, [['Yes', true], ['No',false]], :include_blank => false %>
+        <%= f.select :haspaid, [['Yes', true], ['No',false]], :include_blank => false, class: 'form-control' %>
+
+        <%= f.label :team %>
+        <%= f.collection_select :team, Team.order(:id),:id,:name, include_blank: true,
+      class: 'form-control' %>
+
       <% end %>
 
       <%= f.label :password %>
@@ -43,9 +48,5 @@
       <%= f.submit "Save changes", class: "btn btn-primary" %>
     <% end %>
 
-    <div class="gravatar_edit">
-      <%= gravatar_for @user %>
-      <a href="http://gravatar.com/emails" target="_blank">change</a>
-    </div>
   </div>
 </div>

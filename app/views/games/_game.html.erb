@@ -1,7 +1,7 @@
 <li>
   <%= link_to game.date.strftime("%a, %d %b %Y"), game %>&nbsp;&nbsp;&nbsp;
   <%= game.time.strftime("%I:%M %p") %>&nbsp;&nbsp;   
-  <%= game.homeaway %>&nbsp;&nbsp;   
+  <%= Homeaway.find(game.homeaway).info %>&nbsp;&nbsp;   
   <%= game.comments %>&nbsp;&nbsp;   
   <% if current_user.admin? %>
     | <%= link_to "delete", game, method: :delete,

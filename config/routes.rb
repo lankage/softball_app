@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'user_attendences/new'
 
   post 'attend', to: 'users#attend'
+  post 'beer', to: 'users#beer'
 
   root   'static_pages#home'
   get    '/help',    to: 'static_pages#help'

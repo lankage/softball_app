@@ -1,13 +1,23 @@
 <% if logged_in? %>
-  <div class="row">
+<% @user ||= current_user %>
+  <div class="row" >
     <aside class="col-md-8">
-      <section class="user_info">
-        <%= render 'shared/user_info' %>
-      </section>
-      <section class="stats">
-        <%= render 'shared/stats' %>
-      </section>
-    <div id="gamesContainer">
+        <div id="homeBanner" >
+      <%= image_tag("WKbaseball_mods_blue_noapostrophe_banner.png", :alt => "Wisco Kids") %>
+    </div>
+    <section>
+      <h1>
+        <%= @user.name %><br /><br />
+        <%= user_icon_for @user %>
+      </h1>
+    </section>
+    
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+    <br /><br />
+
+    <div id="gameDiv" >
   <%= render 'shared/team' %>
   </div>
     </aside>
@@ -19,11 +29,12 @@
         <%= render 'shared/micropost_form' %>
       </section>
     </div>
-  </div>
+    </div>
+</div>
   
 <% else %>
   <div class="center jumbotron">
-    <h1>Wisco Kids</h1>
+    <%= image_tag("WKbaseball_mods_blue_noapostrophe.png", :alt => "Wisco Kids") %>
 
     <h2>
       This is the home page for the Wisco Kids Softball Slaughterers
