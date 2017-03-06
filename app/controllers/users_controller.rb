@@ -17,8 +17,13 @@ class UsersController < ApplicationController
     @microposts = Micropost.all
 
     @game = Game.where("date >= ?", Date.today).where(:forteam => @user.team).order("date ASC").limit(1).take
-    @attendence = UserAttendence.where(:user_id => @user.id,:game_id => @game.id).take
+    if @game.nil?
+      @attendence = nil
 
+    else
+      @attendence = UserAttendence.where(:user_id => @user.id,:game_id => @game.id).take
+    end
+    
   end
   def beer
     @user = User.find(params[:user])
@@ -74,7 +79,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
-      redirect_to @user
+      redirect_to users_url
     else
       render 'edit'
     end

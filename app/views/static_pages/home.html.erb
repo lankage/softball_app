@@ -18,17 +18,22 @@
     <br /><br />
 
     <div id="gameDiv" >
-  <%= render 'shared/team' %>
-  </div>
+      <% @game = Game.where("date >= ?", Date.today).where(:forteam => @user.team).order("date ASC").limit(1).take %>
+      <% if !@game.nil? %>
+        <%= render 'shared/team' %>
+      <% else %>
+        No Games Found
+      <% end %>
+    </div>
     </aside>
 
     <div class="col-md-4 postColumn postScrollFrame">
       <h3>Post Feed</h3>
       <%= render 'shared/feed' %>
-         <section class="micropost_form">
+    </div>
+    <section class="micropost_form postForm">
         <%= render 'shared/micropost_form' %>
       </section>
-    </div>
     </div>
 </div>
   

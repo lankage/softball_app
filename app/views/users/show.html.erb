@@ -17,6 +17,7 @@
 
     <section>
     <div id="gameCurrentUserContainer">
+<% if !@game.nil? %>
     <p>Next Game:   
     <%= @game.date.strftime("%a, %d %b %Y") %> <%= @game.time.strftime("%I:%M %p") %>
     </p>
@@ -40,6 +41,10 @@
     <td><%= link_to 'Not Going',  attend_path(user: @user, game_id: @game.id, attendance_type: 'Not Going'), method: :post, class: "btn btn-danger" %></td></tr>
     </table>
     </div>
+<% else %>
+  No Games Found
+<% end %>
+
     <br /><br />
     <div id="beers-container">
     <p>Beer Logging</p>

@@ -35,6 +35,7 @@
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
        <%= f.hidden_field :haspaid, :value => false%>
+       <%= f.hidden_field :team, :value => 3%>
 
       <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>
