@@ -2,10 +2,10 @@
 <div >
  
 <% @currentgame = Game.where("date >= ?", Date.today).where(:forteam => @user.team).order("date ASC").limit(1).take %>
-<p>Next Game:   
+<p style="font-size: 18pt;">Next Game:   
     <%= @currentgame.date.strftime("%a, %d %b %Y") %> <%= @currentgame.time.strftime("%I:%M %p") %>
     </p>
-    <p><%= @currentgame.comments %>
+    <p style="font-size: 18pt;"> <%= @currentgame.comments %>
     </p>
     <br />
 

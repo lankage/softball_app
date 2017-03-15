@@ -23,14 +23,14 @@
     <section>
     <div id="gameCurrentUserContainer">
 <% if !@game.nil? %>
-    <p>Next Game:   
+    <p style="font-size: 18pt">Next Game:   
     <%= @game.date.strftime("%a, %d %b %Y") %> <%= @game.time.strftime("%I:%M %p") %>
     </p>
-    <p><%= @game.comments %>
+    <p style="font-size: 18pt"> <%= @game.comments %>
     </p>
   
     <br />
-    <p style="font-size: 14pt;">I am: 
+    <p style="font-size: 20pt;">I am: 
  
       <% if @attendence.nil? %>
         <%= "Not Checked In" %>
@@ -47,12 +47,12 @@
     </table>
     </div>
 <% else %>
-  No Games Found
+  <p style="font-size: 18pt"> No Games Found</p>
 <% end %>
 
     <br /><br />
     <div id="beers-container">
-    <p>Beer Logging</p>
+    <p style="font-size: 18pt">Beer Logging</p>
       <%= link_to 'Add Beer Consumed',  beer_path(user: @user), method: :post, class: "btn btn-success" %>
     </div>
     </section>

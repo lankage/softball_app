@@ -2,27 +2,30 @@
 <% @user ||= current_user %>
   <div class="row" >
     <aside class="col-md-8">
-        <div id="homeBanner" >
-      <%= image_tag("WKbaseball_mods_blue_noapostrophe_banner.png", :alt => "Wisco Kids") %>
-    </div>
-    <section>
-      <h1>
-        <%= @user.name %><br /><br />
-        <%= user_icon_for @user %>
-      </h1>
-    </section>
     
-    <section class="stats">
-      <%= render 'shared/stats' %>
+    <section>
+      <div>
+        <div>
+          <h1>
+            <%= @user.name %><br /><br />
+            <%= user_icon_for @user %>
+          </h1>
+             <section class="stats">
+             <%= render 'shared/stats' %>
+             </section>
+        </div>
+        <div  id="homeBanner"> <!-- id="homeBanner"-->
+            <%= image_tag("WKbaseball_mods_blue_noapostrophe_banner.png", :alt => "Wisco Kids") %>
+        </div>
+      </div>
     </section>
-    <br /><br />
 
     <div id="gameDiv" >
       <% @game = Game.where("date >= ?", Date.today).where(:forteam => @user.team).order("date ASC").limit(1).take %>
       <% if !@game.nil? %>
         <%= render 'shared/team' %>
       <% else %>
-        No Games Found
+        <p style="font-size: 18pt">No Games Found</p>
       <% end %>
     </div>
     </aside>
@@ -30,7 +33,7 @@
     <div class="col-md-4 postColumn postScrollFrame">
       <h3>Post Feed</h3>
       <%= render 'shared/feed' %>
-    </div>
+    </div><br />
     <section class="micropost_form postForm">
         <%= render 'shared/micropost_form' %>
       </section>
