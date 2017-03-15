@@ -22,6 +22,90 @@
 
     <section>
     <div id="gameCurrentUserContainer">
+
+
+      <% if @user.team == "3" %>
+        <% if !@gameAlternateYellow.nil? %>
+          <p style="font-size: 18pt">Next Yellow Team Game:   
+            <%= @gameAlternateYellow.date.strftime("%a, %d %b %Y") %> <%= @gameAlternateYellow.time.strftime("%I:%M %p") %>
+          </p>
+          <p style="font-size: 18pt"> <%= @gameAlternateYellow.comments %></p>
+          <br />
+          <p style="font-size: 20pt;">I am: 
+       
+            <% if @alternateAttendenceYellow.nil? %>
+              <%= "Not Checked In" %>
+            <% else %>
+              <%= @alternateAttendenceYellow.attendance_type %>
+            <% end %>
+        
+          </p>
+        <% else %>
+            <p style="font-size: 18pt"> No Yellow Team Games Found</p>
+       
+        <% end %>
+
+        <% if @alternatesWindow %>
+          <table class="attendanceSelection">
+            <tr>
+              <td><%= link_to 'Going',  attend_path(user: @user, game_id: @gameAlternateYellow.id, attendance_type: 'Going'), method: :post, class: "btn btn-success attendence_button" %></td>
+              <td><%= link_to 'Maybe',  attend_path(user: @user, game_id: @gameAlternateYellow.id, attendance_type: 'Maybe'), method: :post, class: "btn btn-warning attendence_button" %></td>
+              <td><%= link_to 'Not Going',  attend_path(user: @user, game_id: @gameAlternateYellow.id, attendance_type: 'Not Going'), method: :post, class: "btn btn-danger attendence_button" %></td>
+            </tr>
+          </table>
+
+        <% else %>
+          <p style="font-size: 18pt"> I can Reserve a spot starting: 
+          <%= @alternatesDate.strftime("%a, %d %b %Y") %>
+          </p>
+
+        <% end %>
+
+        <br /><br /><br />
+
+
+          <% if !@gameAlternateGreen.nil? %>
+          <p style="font-size: 18pt">Next Green Team Game:   
+            <%= @gameAlternateGreen.date.strftime("%a, %d %b %Y") %> <%= @gameAlternateGreen.time.strftime("%I:%M %p") %>
+          </p>
+          <p style="font-size: 18pt"> <%= @gameAlternateGreen.comments %></p>
+          <br />
+          <p style="font-size: 20pt;">I am: 
+       
+            <% if @alternateAttendenceGreen.nil? %>
+              <%= "Not Checked In" %>
+            <% else %>
+              <%= @alternateAttendenceGreen.attendance_type %>
+            <% end %>
+        
+          </p>
+        <% else %>
+            <p style="font-size: 18pt"> No Green Team Games Found</p>
+       
+        <% end %>
+
+        <% if @alternatesWindow %>
+          <table class="attendanceSelection">
+            <tr>
+              <td><%= link_to 'Going',  attend_path(user: @user, game_id: @gameAlternateGreen.id, attendance_type: 'Going'), method: :post, class: "btn btn-success attendence_button" %></td>
+              <td><%= link_to 'Maybe',  attend_path(user: @user, game_id: @gameAlternateGreen.id, attendance_type: 'Maybe'), method: :post, class: "btn btn-warning attendence_button" %></td>
+              <td><%= link_to 'Not Going',  attend_path(user: @user, game_id: @gameAlternateGreen.id, attendance_type: 'Not Going'), method: :post, class: "btn btn-danger attendence_button" %></td>
+            </tr>
+          </table>
+        <% else %>
+          <p style="font-size: 18pt"> I can Reserve a spot starting: 
+          <%= @alternatesDate.strftime("%a, %d %b %Y") %>
+        <% end %>
+
+
+
+      <% end %>
+
+
+
+
+
+
 <% if !@game.nil? %>
     <p style="font-size: 18pt">Next Game:   
     <%= @game.date.strftime("%a, %d %b %Y") %> <%= @game.time.strftime("%I:%M %p") %>
@@ -47,7 +131,9 @@
     </table>
     </div>
 <% else %>
-  <p style="font-size: 18pt"> No Games Found</p>
+  <% if @user.team != "3" %>
+    <p style="font-size: 18pt"> No Games Found</p>
+  <% end %>
 <% end %>
 
     <br /><br />

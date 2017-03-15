@@ -1,0 +1,109 @@
+<% @user ||= current_user %>
+<div >
+<div id="yellowContainer">
+	<% @currentgame = Game.where("date >= ?", Date.today).where(:forteam => "1").order("date ASC").limit(1).take %>
+	<p style="font-size: 18pt;">Next Game Yellow Team:   
+    <%= @currentgame.date.strftime("%a, %d %b %Y") %> <%= @currentgame.time.strftime("%I:%M %p") %>
+    </p>
+    <p style="font-size: 18pt;"> <%= @currentgame.comments %>
+    </p>
+    <br />
+
+    <div id="teamListContainer"">
+    	<% @goingForGameIds = UserAttendence.where(attendance_type: 'Going').where(game_id: @currentgame.id).pluck(:user_id)  %>
+    	<% @notGoingForGameIds = UserAttendence.where(attendance_type: 'Not Going').where(game_id: @currentgame.id).pluck(:user_id)  %>
+    	<% @maybeForGameIds = UserAttendence.where(attendance_type: 'Maybe').where(game_id: @currentgame.id).pluck(:user_id)  %>
+    	<% @boysAttending = User.where(gender: '1').where(id: @goingForGameIds) %>
+    	<% @girlsAttending = User.where(gender: '2').where(id: @goingForGameIds) %>
+    	<% @maybes = User.where(id: @maybeForGameIds) %>
+    	<% @nos = User.where(id: @notGoingForGameIds) %>
+    	<div id="boysContainer" class="teamList">
+    	<p> Boys Attending </p>
+    	<p><%= @boysAttending.count %> / 5 Going </p><br />
+    		<% @boysAttending.each do |b| %>
+       			 <%= user_icon_for b %>&nbsp;&nbsp;<%= b.name %><br /><%= b.positions %><br />
+    		<% end %>
+    	</div>
+    	<div id="girlsContainer" class="teamList">
+    	<p> Girls Attending </p>
+    	<p><%= @girlsAttending.count %> / 5 Going </p><br />
+    		<% @girlsAttending.each do |g| %>
+       			 <%= user_icon_for g %>&nbsp;&nbsp;<%= g.name %><br /><%= g.positions %><br />
+    		<% end %>
+    	</div>
+    	<div id="maybesContainer" class="teamList">
+    	<p> Maybes </p>
+        <p><%= @maybes.count %></p><br />
+    		<% @maybes.each do |m| %>
+       			 <%= user_icon_for m %>&nbsp;&nbsp;<%= m.name %><br /><%= m.positions %><br />
+    		<% end %>
+    	</div>
+    	</div>
+    	<div id="nosContainer" class="teamList">
+    		<p> Not Going </p>
+            <p><%= @nos.count %></p><br />
+    		<% @nos.each do |n| %>
+       			 <%= user_icon_for n %>&nbsp;&nbsp;<%= n.name %><br /><%= n.positions %><br />
+    		<% end %>
+    	</div>
+
+    </div>
+</div>
+
+<br /><br/>
+<div id ="greenContainer" style="clear: both;">
+<% @currentgameGreen = Game.where("date >= ?", Date.today).where(:forteam => "2").order("date ASC").limit(1).take %>
+	<p style="font-size: 18pt;">Next Game Green Team:   
+    <%= @currentgameGreen.date.strftime("%a, %d %b %Y") %> <%= @currentgameGreen.time.strftime("%I:%M %p") %>
+    </p>
+    <p style="font-size: 18pt;"> <%= @currentgameGreen.comments %>
+    </p>
+    <br />
+
+    <div id="teamListContainerTwo"">
+    	<% @goingForGameIdsGreen = UserAttendence.where(attendance_type: 'Going').where(game_id: @currentgameGreen.id).pluck(:user_id)  %>
+    	<% @notGoingForGameIdsGreen = UserAttendence.where(attendance_type: 'Not Going').where(game_id: @currentgameGreen.id).pluck(:user_id)  %>
+    	<% @maybeForGameIdsGreen = UserAttendence.where(attendance_type: 'Maybe').where(game_id: @currentgameGreen.id).pluck(:user_id)  %>
+    	<% @boysAttendingGreen = User.where(gender: '1').where(id: @goingForGameIdsGreen) %>
+    	<% @girlsAttendingGreen = User.where(gender: '2').where(id: @goingForGameIdsGreen) %>
+    	<% @maybesGreen = User.where(id: @maybeForGameIdsGreen) %>
+    	<% @nosGreen = User.where(id: @notGoingForGameIdsGreen) %>
+    	<div id="boysContainer" class="teamList">
+    	<p> Boys Attending </p>
+    	<p><%= @boysAttendingGreen.count %> / 5 Going </p><br />
+    		<% @boysAttendingGreen.each do |b| %>
+       			 <%= user_icon_for b %>&nbsp;&nbsp;<%= b.name %><br /><%= b.positions %><br />
+    		<% end %>
+    	</div>
+    	<div id="girlsContainer" class="teamList">
+    	<p> Girls Attending </p>
+    	<p><%= @girlsAttendingGreen.count %> / 5 Going </p><br />
+    		<% @girlsAttendingGreen.each do |g| %>
+       			 <%= user_icon_for g %>&nbsp;&nbsp;<%= g.name %><br /><%= g.positions %><br />
+    		<% end %>
+    	</div>
+    	<div id="maybesContainer" class="teamList">
+    	<p> Maybes </p>
+        <p><%= @maybesGreen.count %></p><br />
+    		<% @maybesGreen.each do |m| %>
+       			 <%= user_icon_for m %>&nbsp;&nbsp;<%= m.name %><br /><%= m.positions %><br />
+    		<% end %>
+    	</div>
+    	</div>
+    	<div id="nosContainer" class="teamList">
+    		<p> Not Going </p>
+            <p><%= @nosGreen.count %></p><br />
+    		<% @nosGreen.each do |n| %>
+       			 <%= user_icon_for n %>&nbsp;&nbsp;<%= n.name %><br /><%= n.positions %><br />
+    		<% end %>
+    	</div>
+
+    </div>
+
+</div>
+
+
+
+
+
+</div>

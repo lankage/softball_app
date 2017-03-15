@@ -4,7 +4,13 @@
   <% else %>
     <%= game.date.strftime("%a, %d %b %Y") %>&nbsp;&nbsp;&nbsp;
   <% end %>
-  <%= game.time.strftime("%I:%M %p") %>&nbsp;&nbsp;   
+  <%= game.time.strftime("%I:%M %p") %>&nbsp;&nbsp;  
+  <% @teamname = Team.find(game.forteam).name  %> 
+  <% if @teamname == "Yellow" %>
+  	<span style="color: yellow; background-color: grey; padding: 5px;font-size: 15pt;">Yellow Team</span>
+  <% else %>
+  	<span style="color: green;padding: 5px;font-size: 15pt;">Green Team</span>
+  <% end %>&nbsp;&nbsp; 
   <%= Homeaway.find(game.homeaway).info %>&nbsp;&nbsp;   
   <%= game.comments %>&nbsp;&nbsp;   
   <% if current_user.admin? %>

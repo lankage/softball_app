@@ -24,6 +24,9 @@
       <% @game = Game.where("date >= ?", Date.today).where(:forteam => @user.team).order("date ASC").limit(1).take %>
       <% if !@game.nil? %>
         <%= render 'shared/team' %>
+      <% elsif @user.team == "3" %>
+        <%= render 'shared/alternates' %>
+
       <% else %>
         <p style="font-size: 18pt">No Games Found</p>
       <% end %>

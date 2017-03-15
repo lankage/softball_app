@@ -15,15 +15,42 @@ class UsersController < ApplicationController
     redirect_to root_url and return unless @user.activated?
     #@microposts = @user.microposts.paginate(page: params[:page])
     @microposts = Micropost.all
+    @game = nil
 
-    @game = Game.where("date >= ?", Date.today).where(:forteam => @user.team).order("date ASC").limit(1).take
-    if @game.nil?
-      @attendence = nil
+    if @user.team == "3"
+      @gameAlternateYellow = Game.where("date >= ?", Date.today).where(:forteam => "1").order("date ASC").limit(1).take
+      @gameAlternateGreen = Game.where("date >= ?", Date.today).where(:forteam => "2").order("date ASC").limit(1).take
+      @alternatesWindow = false
+      if Date.today >= @gameAlternateYellow.date - 3.days
+        @alternatesWindow = true
+      end
+
+
+      @alternatesDate = @gameAlternateYellow.date - 3.days
+
+      if @gameAlternateYellow.nil?
+        @alternateAttendenceYellow = nil
+      else
+        @alternateAttendenceYellow = UserAttendence.where(:user_id => @user.id,:game_id => @gameAlternateYellow.id).take
+      end
+
+      if @gameAlternateGreen.nil?
+        @alternateAttendenceGreen= nil
+      else
+        @alternateAttendenceGreen = UserAttendence.where(:user_id => @user.id,:game_id => @gameAlternateGreen.id).take
+      end
 
     else
-      @attendence = UserAttendence.where(:user_id => @user.id,:game_id => @game.id).take
+
+      @game = Game.where("date >= ?", Date.today).where(:forteam => @user.team).order("date ASC").limit(1).take
+      if @game.nil?
+        @attendence = nil
+
+      else
+        @attendence = UserAttendence.where(:user_id => @user.id,:game_id => @game.id).take
+      end
     end
-    
+
   end
   def beer
     @user = User.find(params[:user])
