@@ -36,9 +36,9 @@
     </p>
     <table class="attendanceSelection">
     <tr>
-    <td><%= link_to 'Going',  attend_path(user: @user, game_id: @game.id, attendance_type: 'Going'), method: :post, class: "btn btn-success" %></td>
-    <td><%= link_to 'Maybe',  attend_path(user: @user, game_id: @game.id, attendance_type: 'Maybe'), method: :post, class: "btn btn-warning" %></td>
-    <td><%= link_to 'Not Going',  attend_path(user: @user, game_id: @game.id, attendance_type: 'Not Going'), method: :post, class: "btn btn-danger" %></td></tr>
+    <td><%= link_to 'Going',  attend_path(user: @user, game_id: @game.id, attendance_type: 'Going'), method: :post, class: "btn btn-success attendence_button" %></td>
+    <td><%= link_to 'Maybe',  attend_path(user: @user, game_id: @game.id, attendance_type: 'Maybe'), method: :post, class: "btn btn-warning attendence_button" %></td>
+    <td><%= link_to 'Not Going',  attend_path(user: @user, game_id: @game.id, attendance_type: 'Not Going'), method: :post, class: "btn btn-danger attendence_button" %></td></tr>
     </table>
     </div>
 <% else %>

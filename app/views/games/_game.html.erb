@@ -1,5 +1,9 @@
 <li>
-  <%= link_to game.date.strftime("%a, %d %b %Y"), game %>&nbsp;&nbsp;&nbsp;
+  <% if @currentgame.id == game.id %>
+  	<%= link_to game.date.strftime("%a, %d %b %Y"), current_user %>&nbsp;&nbsp;&nbsp;
+  <% else %>
+    <%= game.date.strftime("%a, %d %b %Y") %>&nbsp;&nbsp;&nbsp;
+  <% end %>
   <%= game.time.strftime("%I:%M %p") %>&nbsp;&nbsp;   
   <%= Homeaway.find(game.homeaway).info %>&nbsp;&nbsp;   
   <%= game.comments %>&nbsp;&nbsp;   

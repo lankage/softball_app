@@ -23,6 +23,7 @@ class GamesController < ApplicationController
 
   def index
   	@games = Game.all
+    @currentgame = Game.where("date >= ?", Date.today).where(:forteam => current_user.team).order("date ASC").limit(1).take
 
   	#@users = Game.all.paginate(page: params[:page])
   end
