@@ -2,16 +2,16 @@
   <div class="container">
     <%= link_to "Wisco Kids App", root_path, id: "logo" %>
     <nav>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" style="font-size: 18pt;">
         <li><%= link_to "Home", root_path %></li>
         <% if logged_in? %>
           <li><%= link_to "Users", users_path %></li>
 
-          <li class="dropdown">
+          <li class="dropdown" style="font-size: 16pt;">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Games <b class="caret"></b>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" style="font-size: 16pt;">
               <li><%= link_to "Games", games_path %></li>
               <% if current_user.admin? %>
               <li><%= link_to "Add Game", new_game_path %></li>
@@ -19,11 +19,11 @@
             </ul>
           </li>
 
-          <li class="dropdown">
+          <li class="dropdown" style="font-size: 16pt;">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Account <b class="caret"></b>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" style="font-size: 16pt;">
               <li><%= link_to "Profile", current_user %></li>
               <li><%= link_to "Settings", edit_user_path(current_user) %></li>
               <li class="divider"></li>
