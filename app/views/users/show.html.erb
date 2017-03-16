@@ -55,9 +55,11 @@
           </table>
 
         <% else %>
-          <p style="font-size: 18pt"> I can Reserve a spot starting: 
-          <%= @alternatesDate.strftime("%a, %d %b %Y") %>
-          </p>
+          <% if !@alternatesDate.nil? %>
+            <p style="font-size: 18pt"> I can Reserve a spot starting: 
+            <%= @alternatesDate.strftime("%a, %d %b %Y") %>
+            </p>
+          <% end %>
 
         <% end %>
 
@@ -93,8 +95,11 @@
             </tr>
           </table>
         <% else %>
-          <p style="font-size: 18pt"> I can Reserve a spot starting: 
-          <%= @alternatesDate.strftime("%a, %d %b %Y") %>
+          <% if !@alternatesDate.nil? %>
+            <p style="font-size: 18pt"> I can Reserve a spot starting: 
+            <%= @alternatesDate.strftime("%a, %d %b %Y") %>
+            </p>
+          <% end %>
         <% end %>
 
 

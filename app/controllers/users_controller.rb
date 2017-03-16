@@ -16,17 +16,19 @@ class UsersController < ApplicationController
     #@microposts = @user.microposts.paginate(page: params[:page])
     @microposts = Micropost.all
     @game = nil
+    @alternatesDate = nil
 
     if @user.team == "3"
       @gameAlternateYellow = Game.where("date >= ?", Date.today).where(:forteam => "1").order("date ASC").limit(1).take
       @gameAlternateGreen = Game.where("date >= ?", Date.today).where(:forteam => "2").order("date ASC").limit(1).take
       @alternatesWindow = false
-      if Date.today >= @gameAlternateYellow.date - 3.days
-        @alternatesWindow = true
+      if !@gameAlternateYellow.nil?
+         @alternatesDate = @gameAlternateYellow.date - 3.days
+         
+        if Date.today >= @gameAlternateYellow.date - 3.days
+          @alternatesWindow = true
+        end
       end
-
-
-      @alternatesDate = @gameAlternateYellow.date - 3.days
 
       if @gameAlternateYellow.nil?
         @alternateAttendenceYellow = nil
