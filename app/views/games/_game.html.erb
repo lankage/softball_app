@@ -1,6 +1,10 @@
 <li>
-  <% if @currentgame.id == game.id %>
-  	<%= link_to game.date.strftime("%a, %d %b %Y"), current_user %>&nbsp;&nbsp;&nbsp;
+  <% if !@currentgame.nil? %>
+  	<% if @currentgame.id == game.id %>
+  		<%= link_to game.date.strftime("%a, %d %b %Y"), current_user %>&nbsp;&nbsp;&nbsp;
+  	<% else %>
+  		<%= game.date.strftime("%a, %d %b %Y") %>&nbsp;&nbsp;&nbsp;
+  	<% end %>
   <% else %>
     <%= game.date.strftime("%a, %d %b %Y") %>&nbsp;&nbsp;&nbsp;
   <% end %>
