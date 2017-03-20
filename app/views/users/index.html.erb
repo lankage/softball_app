@@ -17,6 +17,7 @@
 	          <th>Activated?</th>
 	          <th>Desired Teammates</th>
 	          <th>Shirt Size</th>
+            <th>Shorts Size</th>
 	          <th>Has Paid?</th>
 	          <th>Phone #</th>
 	          <th>Player Type</th>
@@ -45,7 +46,7 @@
 	            <td><%= u.desired_teammates %></td>
 	            
 	            <td><%= Size.find(u.shirt_size).size %></td>
-           
+              <td><%= u.shortsize %></td>
 	            <td><%= u.haspaid%></td>
 	            <td><%= u.phone_number %></td>
             

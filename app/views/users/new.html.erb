@@ -24,6 +24,9 @@
       <%= f.collection_select :shirt_size, Size.order(:id),:id,:size, include_blank: true,
       class: 'form-control' %>
 
+        <%= f.label :shortsize %>
+      <%= f.select :shortsize, [['Small', 'Small'], ['Medium','Medium'], ['Large','Large']], :include_blank => false, class: 'form-control' %>
+
       <%= f.label :gender %>
       <%= f.collection_select :gender, Gender.order(:id),:id,:gender, include_blank: true,
       class: 'form-control' %>

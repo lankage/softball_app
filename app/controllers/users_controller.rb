@@ -24,7 +24,7 @@ class UsersController < ApplicationController
       @alternatesWindow = false
       if !@gameAlternateYellow.nil?
          @alternatesDate = @gameAlternateYellow.date - 3.days
-         
+
         if Date.today >= @gameAlternateYellow.date - 3.days
           @alternatesWindow = true
         end
@@ -87,6 +87,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @shortsizes = ["Small","Medium","Large"]
   end
 
   def create
@@ -102,6 +103,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @shortsizes = ["Small","Medium","Large"]
   end
 
   def update
@@ -139,7 +141,7 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation, :positions, :desired_teammates, :shirt_size,
-                                   :gender, :phone_number, :haspaid, :team)
+                                   :gender, :phone_number, :haspaid, :team, :shortsize)
     end
 
     # Before filters

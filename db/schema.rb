@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305232646) do
+ActiveRecord::Schema.define(version: 20170320212116) do
 
   create_table "beers", force: :cascade do |t|
     t.integer  "user_id"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20170305232646) do
     t.string   "player_type"
     t.string   "phone_number"
     t.string   "team"
+    t.string   "shortsize"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
