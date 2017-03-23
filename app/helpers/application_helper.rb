@@ -9,4 +9,15 @@ module ApplicationHelper
       page_title + " | " + base_title
     end
   end
+
+  def human_boolean(boolean)
+    boolean ? 'Yes' : 'No'
+    if boolean == 1
+    	boolean = 'Yes'
+    else
+    	boolean = 'No'
+    end
+  end
+
+
 end

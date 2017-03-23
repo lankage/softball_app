@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170320212116) do
+ActiveRecord::Schema.define(version: 20170323204309) do
 
   create_table "beers", force: :cascade do |t|
     t.integer  "user_id"
@@ -102,6 +102,12 @@ ActiveRecord::Schema.define(version: 20170320212116) do
     t.string   "phone_number"
     t.string   "team"
     t.string   "shortsize"
+    t.         "hat_fee_paid"
+    t.         "shirt_fee_paid"
+    t.         "shorts_fee_paid"
+    t.         "buying_shirt"
+    t.         "buying_hat"
+    t.         "buying_shorts"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

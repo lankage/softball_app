@@ -9,6 +9,21 @@
             <%= @user.name %><br /><br />
             <%= user_icon_for @user %>
           </h1>
+          <h4>
+            <% if @user.player_type == "Roster" %>
+              Roster Spot Player on the 
+              <% if @user.team == "1" %>
+                Yellow Team
+              <% elsif @user.team == "2"%>
+                Green Team
+              <% else %>
+                Alternates Team
+              <% end %>
+            <% else %>
+              Alternate Player
+            <% end %>
+
+          </h4>
              <section class="stats">
              <%= render 'shared/stats' %>
              </section>

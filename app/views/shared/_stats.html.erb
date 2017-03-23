@@ -8,13 +8,52 @@
     <% end %>
     </strong>
     Beers Consumed
+
   <strong id="following" class="stat">
     <% if @user.haspaid?  %>
-      <span style="color: green;">Paid</span>
+      <div style="color: green;clear: both;">Paid Player Fee</div>
     <% else %>
-      <span style="color: red;">Has Not Paid</span>
-      <%= link_to 'Pay Me at PayPal.Me', "https://www.paypal.me/adettwiler" %>
+      <div style="color: red;clear: both;">Has Not Paid Player Fee</div>
+     
     <% end %>
-    </strong>
+  </strong>
+
+  <strong id="following" class="stat">
+    <% if @user.buying_shirt? || @user.shirt_fee_paid? %>
+      <% if @user.shirt_fee_paid?  %>
+        <div style="color: green;clear: both;">Paid Shirt Fee</div>
+      <% else %>
+        <div style="color: red;clear: both;">Has Not Paid Shirt Fee</div>
+        
+      <% end %>
+    <% end %>
+  </strong>
+
+  <strong id="following" class="stat">
+    <% if @user.buying_hat? || @user.hat_fee_paid? %>
+      <% if @user.hat_fee_paid?  %>
+        <div style="color: green;clear: both;">Paid Hat Fee</div>
+      <% else %>
+        <div style="color: red;clear: both;">Has Not Paid Hat Fee</div>
+        
+      <% end %>
+    <% end %>
+  </strong>
+
+  <strong id="following" class="stat">
+    <% if @user.buying_shorts? || @user.shorts_fee_paid? %>
+      <% if @user.shorts_fee_paid?  %>
+        <div style="color: green;clear: both;">Paid Shorts Fee</div>
+      <% else %>
+        <div style="color: red;clear: both;">Has Not Paid Shorts Fee</div>
+        
+      <% end %>
+    <% end %>
+
+  <% if !@user.haspaid? || !@user.shirt_fee_paid? && @user.buying_shirt? || !@user.hat_fee_paid? && @user.buying_hat? || !@user.shorts_fee_paid? && @user.buying_shorts? %>
+ <%= link_to 'Pay Me at PayPal.Me', "https://www.paypal.me/adettwiler" %>
+  <% end %>
+  </strong>
+    
   
 </div>

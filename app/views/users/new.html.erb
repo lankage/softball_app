@@ -20,6 +20,9 @@
       <%= f.label :desired_teammates %>
       <%= f.text_field :desired_teammates, class: 'form-control' %>
 
+      <%= f.label :player_type %>
+      <%= f.select :player_type, [['Roster', 'Roster'], ['Alternate','Alternate']], :include_blank => false, class: 'form-control' %>
+
       <%= f.label :shirt_size %>
       <%= f.collection_select :shirt_size, Size.order(:id),:id,:size, include_blank: true,
       class: 'form-control' %>

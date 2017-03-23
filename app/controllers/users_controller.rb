@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
-    #@microposts = @user.microposts.paginate(page: params[:page])
+
     @microposts = Micropost.all
     @game = nil
     @alternatesDate = nil
@@ -141,7 +141,9 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation, :positions, :desired_teammates, :shirt_size,
-                                   :gender, :phone_number, :haspaid, :team, :shortsize)
+                                   :gender, :phone_number, :haspaid, :team, :shortsize, :player_type,
+                                   :buying_shirt,:buying_hat,:buying_shorts,:shirt_fee_paid,:hat_fee_paid,
+                                   :shorts_fee_paid)
     end
 
     # Before filters

@@ -21,34 +21,60 @@
       <%= f.label :desired_teammates %>
       <%= f.text_field :desired_teammates, class: 'form-control' %>
 
+      <%= f.label :player_type %>
+      <%= f.select :player_type, [['Roster', 'Roster'], ['Alternate','Alternate']], :include_blank => false, class: 'form-control' %>
+
       <%= f.label :shirt_size %>
       <%= f.collection_select :shirt_size, Size.order(:id),:id,:size, include_blank: true,
       class: 'form-control' %>
 
       <%= f.label :shortsize %>
       <%= f.select :shortsize, [['Small', 'Small'], ['Medium','Medium'], ['Large','Large']], :include_blank => false, class: 'form-control' %>
+      <p> Player Fees:  $54 Roster Spot,  $10 Alternates</p>
+      <%= f.check_box(:buying_shirt)%>
+      <%= label_tag("Buying Shirt?       $22" )  %>
+      <%= f.check_box(:buying_hat) %>
+      <%= label_tag("Buying Hat?         $7") %>
+      <%= f.check_box(:buying_shorts) %>
+      <%= label_tag("Buying Shorts?         $13") %>
 
+      <br /><br />
       <%= f.label :gender %>
       <%= f.collection_select :gender, Gender.order(:id),:id,:gender, include_blank: true,
       class: 'form-control' %>
 
       <% if current_user.admin? %>
-        <%= f.label :haspaid %>
-        <%= f.select :haspaid, [['Yes', true], ['No',false]], :include_blank => false, class: 'form-control' %>
+      <br /><br />
+        <fieldset><legend>Admin Section</legend>
+          <%= f.label "Player Fee Paid?" %>
+          <%= f.select :haspaid, [['Yes', true], ['No',false]], :include_blank => false, class: 'form-control' %>
 
-        <%= f.label :team %>
-        <%= f.collection_select :team, Team.order(:id),:id,:name, include_blank: true,
-      class: 'form-control' %>
+          <%= f.check_box(:shirt_fee_paid) %>
+          <%= label_tag(:shirt_fee_paid) %>
+          <%= f.check_box(:hat_fee_paid) %>
+          <%= label_tag(:hat_fee_paid) %>
+          <%= f.check_box(:shorts_fee_paid) %>
+          <%= label_tag(:shorts_fee_paid) %>
+        
+          <br /><br />
 
+          <%= f.label :team %>
+          <%= f.collection_select :team, Team.order(:id),:id,:name, include_blank: true,
+            class: 'form-control' %>
+        </fieldset>
       <% end %>
 
-      <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
+      <% if current_user == @user %>
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
+        <%= f.label :password_confirmation, "Confirmation" %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
 
+        
+      <% end %>
       <%= f.submit "Save changes", class: "btn btn-primary" %>
+
     <% end %>
 
   </div>
