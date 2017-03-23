@@ -30,6 +30,16 @@
         <%= f.label :shortsize %>
       <%= f.select :shortsize, [['Small', 'Small'], ['Medium','Medium'], ['Large','Large']], :include_blank => false, class: 'form-control' %>
 
+      <p> Player Fees:  $54 Roster Spot,  $10 Alternates</p>
+      <%= f.check_box(:buying_shirt)%>
+      <%= label_tag("Buying Shirt?       $22" )  %>
+      <%= f.check_box(:buying_hat) %>
+      <%= label_tag("Buying Hat?         $7") %>
+      <%= f.check_box(:buying_shorts) %>
+      <%= label_tag("Buying Shorts?         $13") %>
+
+      <br /><br />
+
       <%= f.label :gender %>
       <%= f.collection_select :gender, Gender.order(:id),:id,:gender, include_blank: true,
       class: 'form-control' %>
