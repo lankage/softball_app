@@ -10,6 +10,10 @@
           <th>Gender</th>
           <th>Team</th>
           <th>Positions</th>
+          <% if current_user.haspaid? %>
+            <th>Phone #</th>
+          <% end %>
+
           <% if current_user.admin? %>
 	          <th>Email</th>
 	          <th>Created At</th>
@@ -25,7 +29,7 @@
             <th>Has Paid Hat Fee?</th>
             <th>Is Buying Shorts?</th>
             <th>Has Paid Shorts Fee?</th>
-	          <th>Phone #</th>
+	          
 	          <th>Player Type</th>
 	          <th>Admin Actions</th>
 	      <% end %>
@@ -44,6 +48,10 @@
               None
             <% end %></td>
             <td><%= u.positions %></td>
+            <% if current_user.haspaid? %>
+              <td><%= u.phone_number %></td>
+            <% end %>
+            
  			<% if current_user.admin? %>
 	            <td><%= u.email %></td>
 	            <td><%= u.created_at %></td>
@@ -60,8 +68,7 @@
               <td><%= human_boolean(u.hat_fee_paid) %></td>
               <td><%= human_boolean(u.buying_shorts) %></td>
               <td><%= human_boolean(u.shorts_fee_paid) %></td>
-	            <td><%= u.phone_number %></td>
-            
+	            
             	<td><%= u.player_type %></td>
             	<td>
             	<% if current_user.admin? && !current_user?(u) %>

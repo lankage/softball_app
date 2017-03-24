@@ -72,16 +72,23 @@ class UsersController < ApplicationController
   def attend
     @user = User.find(params[:user])
     @game = Game.find(params[:game_id])
+    @gameFull = false
 
     @attendence = UserAttendence.where(:user_id => @user.id,:game_id => @game.id).take
-    if @attendence.nil?
-      attrec = UserAttendence.new(user_id: @user.id, game_id: @game.id,attendance_type: params[:attendance_type])
-      attrec.save
-    else
-      @attendence.attendance_type = params[:attendance_type]
-      @attendence.save
+
+    if !@gameFull
+
+      if @attendence.nil?
+        attrec = UserAttendence.new(user_id: @user.id, game_id: @game.id,attendance_type: params[:attendance_type])
+        attrec.save
+      else
+        @attendence.attendance_type = params[:attendance_type]
+        @attendence.save
+      end
+
     end
-    
+
+
     redirect_to :back
   end
 
