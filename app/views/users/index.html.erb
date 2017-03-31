@@ -65,7 +65,11 @@
               <% end %>
               </td>
               <td><%= u.shortsize %></td>
-	            <td><%= u.haspaid %></td>
+              <% if u.haspaid %>
+	             <td class="paid"><%= u.haspaid %></td>
+              <% else %>
+                <td class="unpaid"><%= u.haspaid %></td>
+              <% end %>
               <td><%= human_boolean(u.buying_shirt) %></td>
               <% if u.buying_shirt %>
                 <% if u.shirt_fee_paid %>
