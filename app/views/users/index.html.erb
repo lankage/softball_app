@@ -59,7 +59,11 @@
 	            <td><%= u.activated %></td>
 	            <td><%= u.desired_teammates %></td>
 	            
-	            <td><%= Size.find(u.shirt_size).size %></td>
+	            <td>
+              <% if !u.shirt_size.empty? %>
+              <%= Size.find(u.shirt_size).size %>
+              <% end %>
+              </td>
               <td><%= u.shortsize %></td>
 	            <td><%= u.haspaid %></td>
               <td><%= human_boolean(u.buying_shirt) %></td>
