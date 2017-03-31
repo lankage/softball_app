@@ -11,12 +11,7 @@ module ApplicationHelper
   end
 
   def human_boolean(boolean)
-    
-    if boolean == 1
-    	boolean = 'Yes'
-    else
-    	boolean = 'No'
-    end
+     boolean ? 'Yes' : 'No'
   end
 
 
