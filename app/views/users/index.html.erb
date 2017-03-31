@@ -67,11 +67,40 @@
               <td><%= u.shortsize %></td>
 	            <td><%= u.haspaid %></td>
               <td><%= human_boolean(u.buying_shirt) %></td>
-              <td><%= human_boolean(u.shirt_fee_paid) %></td>
+              <% if u.buying_shirt %>
+                <% if u.shirt_fee_paid %>
+                  <td class="paid"><%= human_boolean(u.shirt_fee_paid) %></td>
+                <% else %>
+                  <td class="unpaid"><%= human_boolean(u.shirt_fee_paid) %></td>
+                <% end %>
+              <% else %>
+                <td><%= human_boolean(u.shirt_fee_paid) %></td>
+              <% end %>
+
               <td><%= human_boolean(u.buying_hat) %></td>
-              <td><%= human_boolean(u.hat_fee_paid) %></td>
+
+              <% if u.buying_hat %>
+                <% if u.hat_fee_paid %>
+                  <td class="paid"><%= human_boolean(u.hat_fee_paid) %></td>
+                <% else %>
+                  <td class="unpaid"><%= human_boolean(u.hat_fee_paid) %></td>
+                <% end %>
+              <% else %>
+                <td><%= human_boolean(u.hat_fee_paid) %></td>
+              <% end %>
+
+              
               <td><%= human_boolean(u.buying_shorts) %></td>
-              <td><%= human_boolean(u.shorts_fee_paid) %></td>
+
+              <% if u.buying_shorts %>
+                <% if u.shorts_fee_paid %>
+                  <td class="paid"><%= human_boolean(u.shorts_fee_paid) %></td>
+                <% else %>
+                  <td class="unpaid"><%= human_boolean(u.shorts_fee_paid) %></td>
+                <% end %>
+              <% else %>
+                <td><%= human_boolean(u.shorts_fee_paid) %></td>
+              <% end %>
 	            
             	<td><%= u.player_type %></td>
             	<td>

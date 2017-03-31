@@ -313,6 +313,14 @@ input {
   font-size: 20pt;
 
 }
+.paid {
+  background-color: green;
+  color: white;
+}
+.unpaid {
+  background-color: red;
+  color: black;
+}
 .teamList {
   float: left;
   margin-right: 10px;
