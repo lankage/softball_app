@@ -40,11 +40,11 @@
 
 
       <% if @user.team == "3" %>
-        <% if !@gameAlternateYellow.nil? %>
+        <% if !@gameYellow.nil? %>
           <p style="font-size: 18pt">Next Yellow Team Game:   
-            <%= @gameAlternateYellow.date.strftime("%a, %d %b %Y") %> <%= @gameAlternateYellow.time.strftime("%I:%M %p") %>
+            <%= @gameYellow.date.strftime("%a, %d %b %Y") %> <%= @gameYellow.time.strftime("%I:%M %p") %>
           </p>
-          <p style="font-size: 18pt"> <%= @gameAlternateYellow.comments %></p>
+          <p style="font-size: 18pt"> <%= @gameYellow.comments %></p>
           <br />
           <p style="font-size: 20pt;">I am: 
        
@@ -63,13 +63,13 @@
         <% if @alternatesWindow %>
           <table class="attendanceSelection">
             <tr>
-              <% if !@gameFull %>
-              <td><%= link_to 'Going',  attend_path(user: @user, game_id: @gameAlternateYellow.id, attendance_type: 'Going'), method: :post, class: "btn btn-success attendence_button" %></td>
+              <% if !@gameFullYellow %>
+              <td><%= link_to 'Going',  attend_path(user: @user, game_id: @gameYellow.id, attendance_type: 'Going'), method: :post, class: "btn btn-success attendence_button" %></td>
               <% else %>
                 <td>Game Roster Currently Full</td>
               <% end %>
-              <td><%= link_to 'Maybe',  attend_path(user: @user, game_id: @gameAlternateYellow.id, attendance_type: 'Maybe'), method: :post, class: "btn btn-warning attendence_button" %></td>
-              <td><%= link_to 'Not Going',  attend_path(user: @user, game_id: @gameAlternateYellow.id, attendance_type: 'Not Going'), method: :post, class: "btn btn-danger attendence_button" %></td>
+              <td><%= link_to 'Maybe',  attend_path(user: @user, game_id: @gameYellow.id, attendance_type: 'Maybe'), method: :post, class: "btn btn-warning attendence_button" %></td>
+              <td><%= link_to 'Not Going',  attend_path(user: @user, game_id: @gameYellow.id, attendance_type: 'Not Going'), method: :post, class: "btn btn-danger attendence_button" %></td>
             </tr>
           </table>
 
@@ -85,11 +85,11 @@
         <br /><br /><br />
 
 
-          <% if !@gameAlternateGreen.nil? %>
+          <% if !@gameGreen.nil? %>
           <p style="font-size: 18pt">Next Green Team Game:   
-            <%= @gameAlternateGreen.date.strftime("%a, %d %b %Y") %> <%= @gameAlternateGreen.time.strftime("%I:%M %p") %>
+            <%= @gameGreen.date.strftime("%a, %d %b %Y") %> <%= @gameGreen.time.strftime("%I:%M %p") %>
           </p>
-          <p style="font-size: 18pt"> <%= @gameAlternateGreen.comments %></p>
+          <p style="font-size: 18pt"> <%= @gameGreen.comments %></p>
           <br />
           <p style="font-size: 20pt;">I am: 
        
@@ -108,13 +108,13 @@
         <% if @alternatesWindow %>
           <table class="attendanceSelection">
             <tr>
-              <% if !@gameFull %>
-              <td><%= link_to 'Going',  attend_path(user: @user, game_id: @gameAlternateGreen.id, attendance_type: 'Going'), method: :post, class: "btn btn-success attendence_button" %></td>
+              <% if !@gameFullGreen %>
+              <td><%= link_to 'Going',  attend_path(user: @user, game_id: @gameGreen.id, attendance_type: 'Going'), method: :post, class: "btn btn-success attendence_button" %></td>
               <% else %>
                 <td>Game Roster Currently Full</td>
               <% end %>
-              <td><%= link_to 'Maybe',  attend_path(user: @user, game_id: @gameAlternateGreen.id, attendance_type: 'Maybe'), method: :post, class: "btn btn-warning attendence_button" %></td>
-              <td><%= link_to 'Not Going',  attend_path(user: @user, game_id: @gameAlternateGreen.id, attendance_type: 'Not Going'), method: :post, class: "btn btn-danger attendence_button" %></td>
+              <td><%= link_to 'Maybe',  attend_path(user: @user, game_id: @gameGreen.id, attendance_type: 'Maybe'), method: :post, class: "btn btn-warning attendence_button" %></td>
+              <td><%= link_to 'Not Going',  attend_path(user: @user, game_id: @gameGreen.id, attendance_type: 'Not Going'), method: :post, class: "btn btn-danger attendence_button" %></td>
             </tr>
           </table>
         <% else %>

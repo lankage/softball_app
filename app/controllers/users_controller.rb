@@ -13,33 +13,78 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     redirect_to root_url and return unless @user.activated?
+    @gameYellow = Game.where("date >= ?", Date.today).where(:forteam => "1").order("date ASC").limit(1).take
+    @gameGreen = Game.where("date >= ?", Date.today).where(:forteam => "2").order("date ASC").limit(1).take
+    @yellowGameAttenders = UserAttendence.where(:game_id => @gameYellow.id, :attendance_type => "Going").pluck(:user_id)
+    @greenGameAttenders = UserAttendence.where(:game_id => @gameGreen.id, :attendance_type => "Going").pluck(:user_id)
+    
+    @yellowGameGirlsCount = 0
+    @greenGameGirlsCount = 0
+    @yellowGameBoysCount = 0
+    @greenGameBoysCount = 0
+
+    if !@yellowGameAttenders.nil?
+      @yellowGameGirlsCount = User.where(:id => @yellowGameAttenders).where(gender: "2").count
+      @yellowGameBoysCount = User.where(:id => @yellowGameAttenders).where(gender: "1").count
+    end
+    if !@greenGameAttenders.nil?
+      @greenGameGirlsCount = User.where(:id => @greenGameAttenders).where(gender: "2").count
+      @greenGameBoysCount = User.where(:id => @greenGameAttenders).where(gender: "1").count
+    end
+
+    @gameFull = false
+    @gameFullYellow = false
+    @gameFullGreen = false
+
+
+    if @user.gender == "1" && @user.team == "1" && @yellowGameBoysCount == 5
+      @gameFull = true
+    elsif @user.gender == "2" && @user.team == "1" && @yellowGameGirlsCount == 5
+      @gameFull = true
+    elsif @user.gender == "1" && @user.team == "2" && @greenGameBoysCount == 5
+      @gameFull = true
+    elsif @user.gender == "2" && @user.team == "2" && @greenGameGirlsCount == 5
+      @gameFull = true
+    end
+
+    if @user.gender == "1" && @user.team == "3" && @yellowGameBoysCount == 5
+      @gameFullYellow = true
+    elsif @user.gender == "2" && @user.team == "3" && @yellowGameGirlsCount == 5
+      @gameFullYellow = true
+    end
+
+    if @user.gender == "1" && @user.team == "3" && @greenGameBoysCount == 5
+      @gameFullGreen = true
+    elsif @user.gender == "2" && @user.team == "3" && @greenGameGirlsCount == 5
+      @gameFullGreen = true
+    end
 
     @microposts = Micropost.all
     @game = nil
     @alternatesDate = nil
+    @alternatesWindow = false
 
     if @user.team == "3"
-      @gameAlternateYellow = Game.where("date >= ?", Date.today).where(:forteam => "1").order("date ASC").limit(1).take
-      @gameAlternateGreen = Game.where("date >= ?", Date.today).where(:forteam => "2").order("date ASC").limit(1).take
-      @alternatesWindow = false
-      if !@gameAlternateYellow.nil?
-         @alternatesDate = @gameAlternateYellow.date - 3.days
 
-        if Date.today >= @gameAlternateYellow.date - 3.days
+      
+      if !@gameYellow.nil?
+         @alternatesDate = @gameYellow.date - 3.days
+
+        if Date.today >= @gameYellow.date - 3.days
           @alternatesWindow = true
         end
       end
 
-      if @gameAlternateYellow.nil?
+      if @gameYellow.nil?
         @alternateAttendenceYellow = nil
       else
-        @alternateAttendenceYellow = UserAttendence.where(:user_id => @user.id,:game_id => @gameAlternateYellow.id).take
+        @alternateAttendenceYellow = UserAttendence.where(:user_id => @user.id,:game_id => @gameYellow.id).take
       end
 
-      if @gameAlternateGreen.nil?
+      if @gameGreen.nil?
         @alternateAttendenceGreen= nil
       else
-        @alternateAttendenceGreen = UserAttendence.where(:user_id => @user.id,:game_id => @gameAlternateGreen.id).take
+        @alternateAttendenceGreen = UserAttendence.where(:user_id => @user.id,:game_id => @gameGreen.id).take
       end
 
     else

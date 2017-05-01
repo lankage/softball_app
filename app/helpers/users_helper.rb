@@ -10,7 +10,7 @@ module UsersHelper
   def user_icon_for(user)
   	nameParts = user.name.split(" ")
   	firstName = nameParts[0]
-  	lastName = "G"
+  	lastName = "$"
   	if nameParts.length > 1
   		lastName = nameParts[1]
   	end
