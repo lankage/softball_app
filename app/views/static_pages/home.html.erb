@@ -22,7 +22,9 @@
 
     <div id="gameDiv" >
       <% @game = Game.where("date >= ?", Date.today).where(:forteam => @user.team).order("date ASC").limit(1).take %>
-      <% if !@game.nil? %>
+      <% if @user.admin? %>
+        <%= render 'shared/alternates' %>
+      <% elsif !@game.nil? %>
         <%= render 'shared/team' %>
       <% elsif @user.team == "3" %>
         <%= render 'shared/alternates' %>
