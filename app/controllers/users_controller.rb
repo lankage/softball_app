@@ -15,9 +15,12 @@ class UsersController < ApplicationController
     redirect_to root_url and return unless @user.activated?
     @gameYellow = Game.where("date >= ?", Date.today).where(:forteam => "1").order("date ASC").limit(1).take
     @gameGreen = Game.where("date >= ?", Date.today).where(:forteam => "2").order("date ASC").limit(1).take
-    @yellowGameAttenders = UserAttendence.where(:game_id => @gameYellow.id, :attendance_type => "Going").pluck(:user_id)
-    @greenGameAttenders = UserAttendence.where(:game_id => @gameGreen.id, :attendance_type => "Going").pluck(:user_id)
-    
+    if !@gameYellow.nil?
+      @yellowGameAttenders = UserAttendence.where(:game_id => @gameYellow.id, :attendance_type => "Going").pluck(:user_id)
+    end
+    if !@gameGreen.nil?
+      @greenGameAttenders = UserAttendence.where(:game_id => @gameGreen.id, :attendance_type => "Going").pluck(:user_id)
+    end
     @yellowGameGirlsCount = 0
     @greenGameGirlsCount = 0
     @yellowGameBoysCount = 0
