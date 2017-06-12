@@ -39,6 +39,9 @@ class UsersController < ApplicationController
     @gameFullYellow = false
     @gameFullGreen = false
 
+    @game_yellow_user_attend = UserAttendence.where(game_id: @gameYellow.id, user_id: @user.id).first
+    @game_green_user_attend = UserAttendence.where(game_id: @gameGreen.id, user_id: @user.id).first
+
 
     if @user.gender == "1" && @user.team == "1" && @yellowGameBoysCount == 5
       @gameFull = true
